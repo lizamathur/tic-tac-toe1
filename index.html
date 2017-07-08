@@ -167,52 +167,54 @@
         theCanvas = "canvas" + num;
         c = document.getElementById(theCanvas);
         cxt = c.getContext("2d");
-
-        if (turn == "computer" && count % 2 != 0) {
-            console.log("Computers turn");
-            if (painted[num - 1] == false) {
-                content[num - 1] = 'O';
-                painted[num - 1] = true;
-                cxt.beginPath();
-                cxt.arc(50, 50, 40, 0, Math.PI * 2, true);
-                cxt.lineWidth = 5;
-                cxt.strokeStyle = "white";
-                cxt.stroke();
-                cxt.closePath();
-                squaresFilled++;
-                count = count + 1;
-                check = 1;
-                i = 0;
-                rep = 0;
-                turn = "user";
-                checkForWinners(content[num - 1]);
-            } else {
-                playcomputer();
+            if (turn == "computer" && count % 2 != 0) {
+                if (painted[num - 1] == false) {
+                    content[num - 1] = 'O';
+                    painted[num - 1] = true;
+                        cxt.beginPath();
+                        cxt.arc(50, 50, 40, 0, Math.PI * 2, true);
+                        cxt.lineWidth = 5;
+                        cxt.strokeStyle = "white";
+                        cxt.stroke();
+                        cxt.closePath();
+                    squaresFilled++;
+                    count = count + 1;
+                    check = 1;
+                    i = 0;
+                    rep = 0;
+                    turn = "user";
+                    checkForWinners(content[num - 1]);
+                } else {
+                    playcomputer();
+                }
             }
-        }
 
     };
 
     function checkForWinners(symbol) {
 
         if (squaresFilled == 9) {
-            alert("Draw!");
+            showmsg("DRAW!");
             win = 1;
-            location.reload();
         }
         for (var a = 0; a < winningCombinations.length; a++) {
             if (content[winningCombinations[a][0]] == symbol && content[winningCombinations[a][1]] == symbol && content[winningCombinations[a][2]] == symbol) {
                 if (symbol == 'O')
-                    alert("You Lose!");
+                    showmsg("YOU LOSE!");
                 else
-                    alert("You win!");
+                    showmsg("YOU WIN!");
                 win = 1;
-                location.reload();
-                break;
             }
         }
 
     }
+    var showmsg=function(msg){
+        setTimeout(function(){
+            alert(msg);
+            win=1;
+            location.reload();
+        },200);
+    };
     </script>
 </head>
 
