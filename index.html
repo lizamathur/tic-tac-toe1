@@ -90,6 +90,7 @@
             bestpos7 = [1, 3, 9],
             bestpos8 = [1, 7, 9],
             bestpos9 = [3, 7, 9];
+        var bestpos10 = [3,7];
         if (count == 1) {
             if (content[4] == '')
                 comp(5);
@@ -107,6 +108,8 @@
                 if (content[1] == 'X')
                     comp(bestpos6[Math.floor(Math.random() * 3)]);
             }
+            if (content[4] == 'X' && content[8] == 'X')
+                comp(bestpos10[Math.floor(Math.random() * 2)]);
             if (content[5] == 'X') {
                 if (content[0] == 'X' || content[6] == 'X')
                     comp(bestpos1[Math.floor(Math.random() * 4)]);
