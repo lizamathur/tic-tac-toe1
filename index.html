@@ -6,17 +6,17 @@
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" type="text/css" href="css3.css" />
     <script type="text/javascript">
-    var painted;
-    var content;
-    var winningCombinations;
-    var count = 0;
+    var painted;//array which stores if a particular canvas is used
+    var content;//array which stores the content of each canvas('X','O' or blank)
+    var winningCombinations;//array to store winning combinations
+    var count = 0; //decides the turn
     var turn = "user";
     var theCanvas;
     var c;
-    var rep = 0;
+    var rep = 0; //if computer can play at random position
     var cxt;
-    var squaresFilled = 0;
-    var i = 0,p=0,
+    var squaresFilled = 0;//counts no. of canvases utilised
+    var p=0;
     win = 0;
     window.onload = function() {
 
@@ -32,7 +32,7 @@
             [0, 4, 8],
             [2, 4, 6]
         ];
-
+        //initilisation of arrays
         for (var l = 0; l <= 8; l++) {
             painted[l] = false;
             content[l] = '';
@@ -46,7 +46,7 @@
         cxt = c.getContext("2d");
 
         if (turn == "user" && count % 2 == 0) {
-            //console.log("Players Turn");
+            //draws 'X' if the canvas clicked is blank
             if (painted[canvasNumber - 1] == false) {
                 content[canvasNumber - 1] = 'X';
                 painted[canvasNumber - 1] = true;
@@ -66,8 +66,9 @@
                 rep = 0;
                 checkForWinners(content[canvasNumber - 1]);
                 if (win == 0)
-                    playcomputer();
+                    playcomputer(); //
             } else {
+                //alerts that the canvas is utilised
                 alert("The space is already occupied");
                 turn = "user";
             }
@@ -79,6 +80,7 @@
 
     var playcomputer = function() {
         turn = "computer";
+        //stores the best position for the computer
         var bestpos1 = [2, 3, 8, 9],
             bestpos2 = [2, 4, 6, 8],
             bestpos3 = [4, 6, 7, 9],
@@ -154,7 +156,7 @@
                     comp(winningCombinations[a][0] + 1);
                 else {
                     check = 1;
-                    rep = 1;
+                    rep = 1; //computer plays at random position (goes to line 163)
                 }
             }
         }
@@ -169,6 +171,7 @@
         cxt = c.getContext("2d");
             if (turn == "computer" && count % 2 != 0) {
                 if (painted[num - 1] == false) {
+                    //draws 'O'
                     content[num - 1] = 'O';
                     painted[num - 1] = true;
                         cxt.beginPath();
@@ -185,10 +188,9 @@
                     turn = "user";
                     checkForWinners(content[num - 1]);
                 } else {
-                    playcomputer();
+                    playcomputer();//computer takes turn if the scanned position is utlised already
                 }
             }
-
     };
 
     function checkForWinners(symbol) {
@@ -197,6 +199,7 @@
             showmsg("DRAW!");
             win = 1;
         }
+        //checks for winning or losing
         for (var a = 0; a < winningCombinations.length; a++) {
             if (content[winningCombinations[a][0]] == symbol && content[winningCombinations[a][1]] == symbol && content[winningCombinations[a][2]] == symbol) {
                 if (symbol == 'O')
@@ -208,6 +211,8 @@
         }
 
     }
+        
+    //alerts for required message    
     var showmsg=function(msg){
         setTimeout(function(){
             alert(msg);
@@ -220,6 +225,7 @@
 
 <body>
     <h1> <span style="color:blue">Tic</span>-<span style="color:white">Tac</span>-<span style="color:red">Toe</span> </h1>
+    //creates the boxes
     <div id="box" width="300" height="300" align="center">
         <canvas id="canvas1" width="100" height="100" style="border:10px solid blue" onclick="canvasClicked(1)"></canvas>
         <canvas id="canvas2" width="100" height="100" style="border:10px solid red" onclick="canvasClicked(2)"></canvas>
